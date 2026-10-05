@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Book {{ train.name }} - RailGo{% endblock %}
+
+{% block content %}
+<section class="booking-page">
+    <div class="booking-container">
+        <div class="booking-summary">
+            <h2><i class="fa-solid fa-ticket"></i> Booking Summary</h2>
+            <div class="summary-card">
+                <h3>{{ train.name }}</h3>
+                <p class="train-id">#{{ train.id }}</p>
+
+                <div class="summary-route">
+                    <div class="summary-point">
+                        <span class="time">{{ train.departure }}</span>
+                        <span class="city">{{ train.from }}</span>
+                    </div>
+                    <div class="summary-arrow">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <div class="summary-point">
+                        <span class="time">{{ train.arrival }}</span>
+                        <span class="city">{{ train.to }}</span>
+                    </div>
+                </div>
+
+                <div class="summary-details">
+                    <div><span>Duration:</span> <strong>{{ train.duration }}</strong></div>
+                    <div><span>Rating:</span> <strong><i class="fa-solid fa-star"></i> {{ train.rating }}</strong></div>
+                    {% if journey_date %}
+                    <div><span>Journey Date:</span> <strong>{{ journey_date }}</strong></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-form-container">
+            <h2><i class="fa-solid fa-user-pen"></i> Passenger Details</h2>
+            <form action="{{ url_for('book', train_id=train.id) }}" method="POST" class="booking-form">
+                <input type="hidden" name="journey_date" value="{{ journey_date }}">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="passenger_name" placeholder="Enter full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" name="passenger_age" placeholder="Age" min="1" max="120" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select name="passenger_gender" required>
+                            <option value="">Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Journey Date</label>
+                        <input type="date" value="{{ journey_date }}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Coach Class</label>
+                    <div class="class-options">
+                        <label class="class-option">
+                            <input type="radio" name="coach_class" value="SL" checked>
+                            <div class="class-content">
+                                <span class="class-name">Sleeper (SL)</span>
+                                <span class="class-price">₹{{ train.price_sl }}</span>
+                            </div>
+                        </label>
+                        <label class="class-option">
+                            <input type="radio" name="coach_class" value="3A">
+                            <div class="class-content">
+                                <span class="class-name">AC 3 Tier (3A)</span>
+                                <span class="class-price">₹{{ train.price_3a }}</span>
+                            </div>
+                        </label>
+                        <label class="class-option">
+                            <input type="radio" name="coach_class" value="2A">
+                            <div class="class-content">
+                                <span class="class-name">AC 2 Tier (2A)</span>
+                                <span class="class-price">₹{{ train.price_2a }}</span>
+                            </div>
+                        </label>
+                        <label class="class-option">
+                            <input type="radio" name="coach_class" value="1A">
+                            <div class="class-content">
+                                <span class="class-name">AC First Class (1A)</span>
+                                <span class="class-price">₹{{ train.price_1a }}</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="confirm-btn">
+                    <i class="fa-solid fa-check-circle"></i> Confirm Booking
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

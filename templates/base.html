@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RailGo - Train Ticket Booking{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <i class="fa-solid fa-train-subway"></i>
+                <span>RailGo</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('all_trains') }}">Trains</a></li>
+                <li><a href="{{ url_for('index') }}#about">About</a></li>
+                <li><a href="{{ url_for('index') }}#contact">Contact</a></li>
+            </ul>
+            <button class="nav-cta">
+                <i class="fa-solid fa-user"></i> Login
+            </button>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3><i class="fa-solid fa-train-subway"></i> RailGo</h3>
+                <p>Your trusted partner for seamless train ticket booking across India.</p>
+                <div class="socials">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('all_trains') }}">All Trains</a></li>
+                    <li><a href="#">PNR Status</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Get in Touch</h4>
+                <p><i class="fa-solid fa-phone"></i> +91 1800 123 4567</p>
+                <p><i class="fa-solid fa-envelope"></i> support@railgo.in</p>
+                <p><i class="fa-solid fa-location-dot"></i> Mumbai, India</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 RailGo. All rights reserved. Made with ❤️ in India</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

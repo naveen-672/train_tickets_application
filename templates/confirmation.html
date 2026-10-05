@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Booking Confirmed - RailGo{% endblock %}
+
+{% block content %}
+<section class="confirmation-page">
+    <div class="confirmation-card">
+        <div class="success-icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h1>Booking Confirmed!</h1>
+        <p class="success-msg">Your ticket has been booked successfully. Happy journey!</p>
+
+        <div class="ticket">
+            <div class="ticket-header">
+                <div class="ticket-logo">
+                    <i class="fa-solid fa-train-subway"></i> RailGo
+                </div>
+                <div class="pnr">
+                    <span>PNR</span>
+                    <strong>{{ booking.pnr }}</strong>
+                </div>
+            </div>
+
+            <div class="ticket-body">
+                <div class="ticket-route">
+                    <div class="ticket-point">
+                        <span class="label">From</span>
+                        <h3>{{ booking.from }}</h3>
+                        <span class="time">{{ booking.departure }}</span>
+                    </div>
+                    <div class="ticket-arrow">
+                        <i class="fa-solid fa-train"></i>
+                        <div class="dotted-line"></div>
+                    </div>
+                    <div class="ticket-point">
+                        <span class="label">To</span>
+                        <h3>{{ booking.to }}</h3>
+                        <span class="time">{{ booking.arrival }}</span>
+                    </div>
+                </div>
+
+                <div class="ticket-divider"></div>
+
+                <div class="ticket-details">
+                    <div class="detail-item">
+                        <span>Train Name</span>
+                        <strong>{{ booking.train_name }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Train No.</span>
+                        <strong>#{{ booking.train_id }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Passenger</span>
+                        <strong>{{ booking.passenger_name }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Age / Gender</span>
+                        <strong>{{ booking.passenger_age }} / {{ booking.passenger_gender }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Class</span>
+                        <strong>{{ booking.coach_class }}</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Journey Date</span>
+                        <strong>{{ booking.journey_date or 'N/A' }}</strong>
+                    </div>
+                </div>
+
+                <div class="ticket-divider"></div>
+
+                <div class="ticket-footer">
+                    <div class="fare">
+                        <span>Total Fare</span>
+                        <h2>₹{{ booking.fare }}</h2>
+                    </div>
+                    <div class="status">
+                        <i class="fa-solid fa-circle-check"></i> CONFIRMED
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="confirmation-actions">
+            <a href="{{ url_for('index') }}" class="book-btn">
+                <i class="fa-solid fa-home"></i> Back to Home
+            </a>
+            <button onclick="window.print()" class="print-btn">
+                <i class="fa-solid fa-print"></i> Print Ticket
+            </button>
+        </div>
+    </div>
+</section>
+{% endblock %}

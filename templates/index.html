@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}RailGo - Book Train Tickets Online{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Book Your Train Tickets <span class="gradient-text">Effortlessly</span></h1>
+        <p>Experience the fastest and easiest way to book train tickets across India.</p>
+
+        <div class="search-card">
+            <form action="{{ url_for('search') }}" method="POST" class="search-form">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-location-dot"></i> From</label>
+                    <select name="from_city" required>
+                        <option value="">Select departure city</option>
+                        {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="button" class="swap-btn" onclick="swapCities()">
+                    <i class="fa-solid fa-right-left"></i>
+                </button>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-map-pin"></i> To</label>
+                    <select name="to_city" required>
+                        <option value="">Select destination city</option>
+                        {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-calendar-days"></i> Journey Date</label>
+                    <input type="date" name="journey_date" required>
+                </div>
+
+                <button type="submit" class="search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search Trains
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="about">
+    <h2 class="section-title">Why Choose <span class="gradient-text">RailGo?</span></h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+            <h3>Instant Booking</h3>
+            <p>Book your tickets in under 60 seconds with our lightning-fast booking engine.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Secure Payments</h3>
+            <p>100% secure transactions with bank-level encryption and multiple payment options.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+            <h3>24/7 Support</h3>
+            <p>Round-the-clock customer support to help you with any booking queries.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-tags"></i></div>
+            <h3>Best Prices</h3>
+            <p>Get the best deals and offers on train tickets with zero hidden charges.</p>
+        </div>
+    </div>
+</section>
+
+<section class="popular-trains">
+    <h2 class="section-title">Popular <span class="gradient-text">Trains</span></h2>
+    <div class="trains-grid">
+        {% for train in trains %}
+        <div class="train-card">
+            <div class="train-header">
+                <div>
+                    <h3>{{ train.name }}</h3>
+                    <span class="train-id">#{{ train.id }}</span>
+                </div>
+                <div class="rating"><i class="fa-solid fa-star"></i> {{ train.rating }}</div>
+            </div>
+            <div class="train-route">
+                <div class="route-point">
+                    <span class="time">{{ train.departure }}</span>
+                    <span class="city">{{ train.from }}</span>
+                </div>
+                <div class="route-line">
+                    <i class="fa-solid fa-train"></i>
+                    <span>{{ train.duration }}</span>
+                </div>
+                <div class="route-point">
+                    <span class="time">{{ train.arrival }}</span>
+                    <span class="city">{{ train.to }}</span>
+                </div>
+            </div>
+            <div class="train-footer">
+                <div class="price">
+                    <span class="price-label">Starts from</span>
+                    <span class="price-value">₹{{ train.price_sl }}</span>
+                </div>
+                <a href="{{ url_for('book', train_id=train.id) }}" class="book-btn">Book Now</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="view-all">
+        <a href="{{ url_for('all_trains') }}" class="view-all-btn">
+            View All Trains <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-container">
+        <div class="stat-item">
+            <h3>10M+</h3>
+            <p>Happy Travelers</p>
+        </div>
+        <div class="stat-item">
+            <h3>5000+</h3>
+            <p>Trains Connected</p>
+        </div>
+        <div class="stat-item">
+            <h3>7000+</h3>
+            <p>Stations Covered</p>
+        </div>
+        <div class="stat-item">
+            <h3>99.9%</h3>
+            <p>Uptime Guarantee</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
